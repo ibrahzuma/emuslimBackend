@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'api',
     'dashboard',
     'duas', # New Feature
+    'islamic_content', # Announcements & Reminders
 ]
 
 REST_FRAMEWORK = {

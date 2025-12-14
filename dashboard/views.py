@@ -98,3 +98,55 @@ class CategoryDeleteView(LoginRequiredMixin, AdminRequiredMixin, DeleteView):
     model = Category
     template_name = 'dashboard/category_confirm_delete.html'
     success_url = reverse_lazy('dashboard:categories')
+
+# --- Islamic Content Management ---
+from islamic_content.models import Announcement, DailyReminder
+
+# Announcements
+class AnnouncementListView(LoginRequiredMixin, AdminRequiredMixin, ListView):
+    model = Announcement
+    template_name = 'dashboard/announcements.html'
+    context_object_name = 'announcements'
+    paginate_by = 10
+
+class AnnouncementCreateView(LoginRequiredMixin, AdminRequiredMixin, CreateView):
+    model = Announcement
+    fields = ['title', 'content', 'is_active']
+    template_name = 'dashboard/announcement_form.html'
+    success_url = reverse_lazy('dashboard:announcements')
+
+class AnnouncementUpdateView(LoginRequiredMixin, AdminRequiredMixin, UpdateView):
+    model = Announcement
+    fields = ['title', 'content', 'is_active']
+    template_name = 'dashboard/announcement_form.html'
+    success_url = reverse_lazy('dashboard:announcements')
+
+class AnnouncementDeleteView(LoginRequiredMixin, AdminRequiredMixin, DeleteView):
+    model = Announcement
+    template_name = 'dashboard/announcement_confirm_delete.html'
+    success_url = reverse_lazy('dashboard:announcements')
+
+# Daily Reminders
+class ReminderListView(LoginRequiredMixin, AdminRequiredMixin, ListView):
+    model = DailyReminder
+    template_name = 'dashboard/reminders.html'
+    context_object_name = 'reminders'
+    paginate_by = 10
+    ordering = ['-date_for']
+
+class ReminderCreateView(LoginRequiredMixin, AdminRequiredMixin, CreateView):
+    model = DailyReminder
+    fields = ['date_for', 'content_type', 'title', 'arabic_text', 'translation', 'reference']
+    template_name = 'dashboard/reminder_form.html'
+    success_url = reverse_lazy('dashboard:reminders')
+
+class ReminderUpdateView(LoginRequiredMixin, AdminRequiredMixin, UpdateView):
+    model = DailyReminder
+    fields = ['date_for', 'content_type', 'title', 'arabic_text', 'translation', 'reference']
+    template_name = 'dashboard/reminder_form.html'
+    success_url = reverse_lazy('dashboard:reminders')
+
+class ReminderDeleteView(LoginRequiredMixin, AdminRequiredMixin, DeleteView):
+    model = DailyReminder
+    template_name = 'dashboard/reminder_confirm_delete.html'
+    success_url = reverse_lazy('dashboard:reminders')

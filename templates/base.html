@@ -51,6 +51,18 @@
                     class="block py-2.5 px-4 hover:bg-gray-700 transition duration-200">
                     Categories
                 </a>
+
+                <div class="border-t border-gray-700 my-2"></div>
+
+                <a href="{% url 'dashboard:announcements' %}"
+                    class="block py-2.5 px-4 hover:bg-gray-700 transition duration-200">
+                    Announcements
+                </a>
+                <a href="{% url 'dashboard:reminders' %}"
+                    class="block py-2.5 px-4 hover:bg-gray-700 transition duration-200">
+                    Daily Reminders
+                </a>
+
                 <a href="{% url 'logout' %}"
                     class="block py-2.5 px-4 hover:bg-gray-700 transition duration-200 text-red-400 mt-10">
                     Logout

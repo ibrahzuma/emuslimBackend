@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="bg-white shadow sm:rounded-lg p-6">
+        <h2 class="text-2xl font-bold mb-6">{% if form.instance.pk %}Edit{% else %}Add{% endif %} Announcement</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">{{ field.label }}</label>
+                <div class="mt-1">{{ field }}</div>
+                {% if field.help_text %}<p class="text-gray-500 text-xs">{{ field.help_text }}</p>{% endif %}
+            </div>
+            {% endfor %}
+            <div class="flex justify-end mt-6">
+                <a href="{% url 'dashboard:announcements' %}" class="text-gray-600 hover:text-gray-900 mr-4">Cancel</a>
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Tailwind helper -->
+<script>
+    document.querySelectorAll('input[type="text"], textarea').forEach(el => {
+        el.classList.add('shadow-sm', 'focus:ring-indigo-500', 'focus:border-indigo-500', 'block', 'w-full', 'sm:text-sm', 'border-gray-300', 'rounded-md', 'p-2', 'border');
+    });
+    document.querySelectorAll('input[type="checkbox"]').forEach(el => {
+        el.classList.add('h-4', 'w-4', 'text-indigo-600', 'focus:ring-indigo-500', 'border-gray-300', 'rounded');
+    });
+</script>
+{% endblock %}

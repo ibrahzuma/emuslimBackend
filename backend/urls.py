@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('api/', include('duas.urls')), # Dua API
+    path('api/', include('islamic_content.urls')), # Islamic Content API
     path('dashboard/', include('dashboard.urls')),
     # Standard Auth views for the dashboard
     path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
