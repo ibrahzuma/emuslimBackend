@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'api',
     'dashboard',
+    'duas', # New Feature
 ]
 
 REST_FRAMEWORK = {
