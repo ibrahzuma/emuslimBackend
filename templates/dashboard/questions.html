@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-gray-900">Q&A (Fatwa) Management</h1>
+    </div>
+
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Question
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Asked
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for question in questions %}
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span
+                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                            {% if question.status == 'ANSWERED' %}bg-green-100 text-green-800{% elif question.status == 'REJECTED' %}bg-red-100 text-red-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                            {{ question.get_status_display }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-900 max-w-xs truncate">{{ question.question_text }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ question.asked_at|date:"M d, H:i"
+                        }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <a href="{% url 'dashboard:question_edit' question.id %}"
+                            class="text-indigo-600 hover:text-indigo-900 mr-4">
+                            {% if question.status == 'PENDING' %}Answer{% else %}Edit Answer{% endif %}
+                        </a>
+                        <a href="{% url 'dashboard:question_delete' question.id %}"
+                            class="text-red-600 hover:text-red-900">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="px-6 py-4 text-center text-gray-500">No questions found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

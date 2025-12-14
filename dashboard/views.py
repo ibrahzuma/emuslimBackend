@@ -150,3 +150,33 @@ class ReminderDeleteView(LoginRequiredMixin, AdminRequiredMixin, DeleteView):
     model = DailyReminder
     template_name = 'dashboard/reminder_confirm_delete.html'
     success_url = reverse_lazy('dashboard:reminders')
+
+# --- Q&A Management ---
+from qna.models import Question
+
+class QuestionListView(LoginRequiredMixin, AdminRequiredMixin, ListView):
+    model = Question
+    template_name = 'dashboard/questions.html'
+    context_object_name = 'questions'
+    paginate_by = 10
+    ordering = ['status', '-asked_at'] # Pending first
+
+class QuestionUpdateView(LoginRequiredMixin, AdminRequiredMixin, UpdateView):
+    model = Question
+    # Admin mostly answers, so we show question/answer status
+    fields = ['status', 'answer_text', 'question_text'] 
+    template_name = 'dashboard/question_form.html'
+    success_url = reverse_lazy('dashboard:questions')
+
+    def form_valid(self, form):
+        # Auto-set answered_at/by if answering
+        if form.instance.status == 'ANSWERED' and not form.instance.answered_at:
+            from django.utils import timezone
+            form.instance.answered_at = timezone.now()
+            form.instance.answered_by = self.request.user.username
+        return super().form_valid(form)
+
+class QuestionDeleteView(LoginRequiredMixin, AdminRequiredMixin, DeleteView):
+    model = Question
+    template_name = 'dashboard/question_confirm_delete.html'
+    success_url = reverse_lazy('dashboard:questions')

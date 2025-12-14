@@ -31,4 +31,9 @@ urlpatterns = [
     path('reminders/add/', views.ReminderCreateView.as_view(), name='reminder_add'),
     path('reminders/<int:pk>/edit/', views.ReminderUpdateView.as_view(), name='reminder_edit'),
     path('reminders/<int:pk>/delete/', views.ReminderDeleteView.as_view(), name='reminder_delete'),
+
+    # Q&A
+    path('questions/', views.QuestionListView.as_view(), name='questions'),
+    path('questions/<int:pk>/edit/', views.QuestionUpdateView.as_view(), name='question_edit'),
+    path('questions/<int:pk>/delete/', views.QuestionDeleteView.as_view(), name='question_delete'),
 ]

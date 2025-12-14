@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="bg-white shadow sm:rounded-lg p-6">
+        <h2 class="text-2xl font-bold mb-6">Answer Question</h2>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="mb-6 bg-gray-50 p-4 rounded border">
+                <label class="block text-gray-700 text-sm font-bold mb-2">The Question:</label>
+                <div class="text-gray-900">{{ form.instance.question_text }}</div>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Status</label>
+                <div class="mt-1">{{ form.status }}</div>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Answer</label>
+                <div class="mt-1">{{ form.answer_text }}</div>
+                <p class="text-gray-500 text-xs mt-1">Write the Fatwa/Answer here.</p>
+            </div>
+
+            <!-- Hidden field for question text if needed by form validation, mostly readonly -->
+            <div class="hidden">
+                {{ form.question_text.as_hidden }}
+            </div>
+
+            <div class="flex justify-end mt-6">
+                <a href="{% url 'dashboard:questions' %}" class="text-gray-600 hover:text-gray-900 mr-4">Cancel</a>
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Save
+                    Answer</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    document.querySelectorAll('textarea, select').forEach(el => {
+        el.classList.add('shadow-sm', 'focus:ring-indigo-500', 'focus:border-indigo-500', 'block', 'w-full', 'sm:text-sm', 'border-gray-300', 'rounded-md', 'p-2', 'border');
+    });
+    // Make Answer box taller
+    document.getElementById('id_answer_text').rows = 10;
+</script>
+{% endblock %}
