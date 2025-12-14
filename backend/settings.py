@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'dashboard',
     'duas', # New Feature
     'islamic_content', # Announcements & Reminders
+    'qna', # Q&A / Fatwa
 ]
 
 REST_FRAMEWORK = {
