@@ -30,7 +30,7 @@ if [ -d "$PROJECT_DIR" ]; then
 else
     echo "Cloning project from $REPO_URL..."
     # Check if REPO_URL is set
-    if [ "$REPO_URL" == "https://github.com/ibrahzuma/emuslimBackend.git" ]; then
+    if [ "$REPO_URL" == "YOUR_GITHUB_REPO_URL" ]; then
         echo "ERROR: REPO_URL is still default. Please edit setup.sh!"
         exit 1
     fi
