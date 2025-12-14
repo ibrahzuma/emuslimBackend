@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-gray-900">Donation Campaigns</h1>
+        <a href="{% url 'dashboard:donation_add' %}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            + New Campaign
+        </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for campaign in campaigns %}
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="p-5">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">{{ campaign.title }}</h3>
+                    {% if campaign.is_active %}
+                    <span
+                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
+                    {% else %}
+                    <span
+                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">Inactive</span>
+                    {% endif %}
+                </div>
+
+                <p class="text-gray-600 mb-4 line-clamp-3">{{ campaign.description }}</p>
+
+                <div class="mb-4">
+                    <div class="flex justify-between text-sm font-medium text-gray-900 mb-1">
+                        <span>Raised: ${{ campaign.raised_amount }}</span>
+                        <span>Goal: ${{ campaign.target_amount }}</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{ campaign.progress_percentage }}%">
+                        </div>
+                    </div>
+                    <p class="text-right text-xs text-gray-500 mt-1">{{ campaign.progress_percentage }}% Funded</p>
+                </div>
+
+                <div class="flex justify-between items-center pt-4 border-t">
+                    <a href="{% url 'dashboard:donation_edit' campaign.id %}"
+                        class="text-indigo-600 hover:text-indigo-900 font-medium">Edit</a>
+                    <a href="{% url 'dashboard:donation_delete' campaign.id %}"
+                        class="text-red-600 hover:text-red-900 font-medium">Delete</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-span-full text-center py-10 text-gray-500">
+            No donation campaigns found.
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

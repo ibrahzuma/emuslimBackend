@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'duas', # New Feature
     'islamic_content', # Announcements & Reminders
     'qna', # Q&A / Fatwa
+    'donations', # Donation Campaigns
 ]
 
 REST_FRAMEWORK = {

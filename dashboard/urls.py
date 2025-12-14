@@ -36,4 +36,10 @@ urlpatterns = [
     path('questions/', views.QuestionListView.as_view(), name='questions'),
     path('questions/<int:pk>/edit/', views.QuestionUpdateView.as_view(), name='question_edit'),
     path('questions/<int:pk>/delete/', views.QuestionDeleteView.as_view(), name='question_delete'),
+
+    # Donations
+    path('donations/', views.DonationListView.as_view(), name='donations'),
+    path('donations/add/', views.DonationCreateView.as_view(), name='donation_add'),
+    path('donations/<int:pk>/edit/', views.DonationUpdateView.as_view(), name='donation_edit'),
+    path('donations/<int:pk>/delete/', views.DonationDeleteView.as_view(), name='donation_delete'),
 ]

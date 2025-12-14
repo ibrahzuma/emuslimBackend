@@ -186,3 +186,30 @@ class QuestionDeleteView(LoginRequiredMixin, AdminRequiredMixin, DeleteView):
     model = Question
     template_name = 'dashboard/question_confirm_delete.html'
     success_url = reverse_lazy('dashboard:questions')
+
+# --- Donation Management ---
+from donations.models import DonationCampaign
+
+class DonationListView(LoginRequiredMixin, AdminRequiredMixin, ListView):
+    model = DonationCampaign
+    template_name = 'dashboard/donations.html'
+    context_object_name = 'campaigns'
+    paginate_by = 10
+    ordering = ['-created_at']
+
+class DonationCreateView(LoginRequiredMixin, AdminRequiredMixin, CreateView):
+    model = DonationCampaign
+    fields = ['title', 'description', 'target_amount', 'raised_amount', 'bank_details', 'is_active']
+    template_name = 'dashboard/donation_form.html'
+    success_url = reverse_lazy('dashboard:donations')
+
+class DonationUpdateView(LoginRequiredMixin, AdminRequiredMixin, UpdateView):
+    model = DonationCampaign
+    fields = ['title', 'description', 'target_amount', 'raised_amount', 'bank_details', 'is_active']
+    template_name = 'dashboard/donation_form.html'
+    success_url = reverse_lazy('dashboard:donations')
+
+class DonationDeleteView(LoginRequiredMixin, AdminRequiredMixin, DeleteView):
+    model = DonationCampaign
+    template_name = 'dashboard/donation_confirm_delete.html'
+    success_url = reverse_lazy('dashboard:donations')
