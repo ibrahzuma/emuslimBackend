@@ -69,9 +69,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'backend.middleware.ApiKeyMiddleware', # Custom API Security
 ]
 
 ROOT_URLCONF = 'backend.urls'
+
+# Security: API Key for Flutter App
+API_KEY_SECRET = os.getenv('API_KEY_SECRET', 'my-secret-api-key')
 
 TEMPLATES = [
     {
