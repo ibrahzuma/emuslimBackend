@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    
+    <!-- HTMX -->
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e40af', // Example primary color
+                        secondary: '#1e293b',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-secondary text-white hidden md:block flex-shrink-0">
+            <div class="p-4 font-bold text-xl tracking-wider">
+                AdminPortal
+            </div>
+            <nav class="mt-4">
+                <a href="{% url 'dashboard:home' %}" class="block py-2.5 px-4 hover:bg-gray-700 transition duration-200">
+                    Dashboard
+                </a>
+                <a href="{% url 'dashboard:users' %}" class="block py-2.5 px-4 hover:bg-gray-700 transition duration-200">
+                    User Management
+                </a>
+                <a href="{% url 'logout' %}" class="block py-2.5 px-4 hover:bg-gray-700 transition duration-200 text-red-400 mt-10">
+                    Logout
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col h-screen overflow-y-auto">
+            <!-- Header (Mobile Menu, etc) -->
+            <header class="bg-white shadow p-4 flex justify-between items-center md:hidden">
+                <div class="font-bold">AdminPortal</div>
+                <button class="text-gray-500 focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+            </header>
+
+            <main class="p-6">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="mb-4 p-4 rounded {% if message.tags == 'error' %}bg-red-100 text-red-700{% else %}bg-green-100 text-green-700{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                {% block content %}
+                {% endblock %}
+            </main>
+        </div>
+    </div>
+
+</body>
+</html>
