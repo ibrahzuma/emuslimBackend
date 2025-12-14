@@ -11,9 +11,15 @@ class DashboardHomeView(LoginRequiredMixin, AdminRequiredMixin, TemplateView):
     template_name = 'dashboard/index.html'
 
     def get_context_data(self, **kwargs):
+        from qna.models import Question
         context = super().get_context_data(**kwargs)
         context['total_users'] = User.objects.count()
         context['recent_users'] = User.objects.order_by('-date_joined')[:5]
+        
+        # Q&A Stats
+        context['total_questions'] = Question.objects.count()
+        context['pending_questions'] = Question.objects.filter(status='PENDING').count()
+        context['answered_questions'] = Question.objects.filter(status='ANSWERED').count()
         return context
 
 class UserManagementView(LoginRequiredMixin, AdminRequiredMixin, ListView):
